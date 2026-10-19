@@ -1,0 +1,444 @@
+{
+  "all": {
+    "steps": 7182,
+    "unsafe": 3412,
+    "trajectories": 3376,
+    "unique_tools": 518,
+    "parse_status": {
+      "empty_tool_name": 13,
+      "missing_action": 10,
+      "missing_action_input": 114,
+      "ok_json_object": 6764,
+      "ok_json_value": 12,
+      "ok_text_arguments": 269
+    },
+    "render_status": {
+      "thought_removed": {
+        "ok": 7172,
+        "parse:missing_action": 10
+      },
+      "code_python": {
+        "ok": 6764,
+        "parse:empty_tool_name": 13,
+        "parse:missing_action": 10,
+        "parse:missing_action_input": 114,
+        "parse:ok_json_value": 12,
+        "parse:ok_text_arguments": 269
+      },
+      "shell_cli": {
+        "ok": 6764,
+        "parse:empty_tool_name": 13,
+        "parse:missing_action": 10,
+        "parse:missing_action_input": 114,
+        "parse:ok_json_value": 12,
+        "parse:ok_text_arguments": 269
+      }
+    },
+    "eligible_programmatic": 6764,
+    "eligible_programmatic_unsafe": 3393,
+    "share_leaky_tool_in_thought": 0.5102,
+    "share_tool_in_history": 0.1987,
+    "share_nested_args": 0.16,
+    "mean_n_args": 1.838,
+    "mean_thought_chars": 239.8,
+    "approx_input_tokens_per_pass": 5099415
+  },
+  "per_source": {
+    "agentdojo": {
+      "steps": 1220,
+      "unsafe": 352,
+      "trajectories": 589,
+      "unique_tools": 51,
+      "parse_status": {
+        "ok_json_object": 1220
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 1220
+        },
+        "code_python": {
+          "ok": 1220
+        },
+        "shell_cli": {
+          "ok": 1220
+        }
+      },
+      "eligible_programmatic": 1220,
+      "eligible_programmatic_unsafe": 352,
+      "share_leaky_tool_in_thought": 0.0025,
+      "share_tool_in_history": 0.3607,
+      "share_nested_args": 0.2451,
+      "mean_n_args": 1.813,
+      "mean_thought_chars": 168.4,
+      "approx_input_tokens_per_pass": 2486411
+    },
+    "agentharm": {
+      "steps": 731,
+      "unsafe": 525,
+      "trajectories": 197,
+      "unique_tools": 74,
+      "parse_status": {
+        "ok_json_object": 718,
+        "ok_json_value": 12,
+        "ok_text_arguments": 1
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 731
+        },
+        "code_python": {
+          "ok": 718,
+          "parse:ok_json_value": 12,
+          "parse:ok_text_arguments": 1
+        },
+        "shell_cli": {
+          "ok": 718,
+          "parse:ok_json_value": 12,
+          "parse:ok_text_arguments": 1
+        }
+      },
+      "eligible_programmatic": 718,
+      "eligible_programmatic_unsafe": 512,
+      "share_leaky_tool_in_thought": 0.0479,
+      "share_tool_in_history": 0.2709,
+      "share_nested_args": 0.0109,
+      "mean_n_args": 1.77,
+      "mean_thought_chars": 151.3,
+      "approx_input_tokens_per_pass": 515809
+    },
+    "asb": {
+      "steps": 5231,
+      "unsafe": 2535,
+      "trajectories": 2590,
+      "unique_tools": 396,
+      "parse_status": {
+        "empty_tool_name": 13,
+        "missing_action": 10,
+        "missing_action_input": 114,
+        "ok_json_object": 4826,
+        "ok_text_arguments": 268
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 5221,
+          "parse:missing_action": 10
+        },
+        "code_python": {
+          "ok": 4826,
+          "parse:empty_tool_name": 13,
+          "parse:missing_action": 10,
+          "parse:missing_action_input": 114,
+          "parse:ok_text_arguments": 268
+        },
+        "shell_cli": {
+          "ok": 4826,
+          "parse:empty_tool_name": 13,
+          "parse:missing_action": 10,
+          "parse:missing_action_input": 114,
+          "parse:ok_text_arguments": 268
+        }
+      },
+      "eligible_programmatic": 4826,
+      "eligible_programmatic_unsafe": 2529,
+      "share_leaky_tool_in_thought": 0.6932,
+      "share_tool_in_history": 0.1508,
+      "share_nested_args": 0.161,
+      "mean_n_args": 1.853,
+      "mean_thought_chars": 268.8,
+      "approx_input_tokens_per_pass": 2097195
+    }
+  },
+  "per_domain": {
+    "agentdojo/banking": {
+      "steps": 87,
+      "unsafe": 28,
+      "trajectories": 45,
+      "unique_tools": 6,
+      "parse_status": {
+        "ok_json_object": 87
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 87
+        },
+        "code_python": {
+          "ok": 87
+        },
+        "shell_cli": {
+          "ok": 87
+        }
+      },
+      "eligible_programmatic": 87,
+      "eligible_programmatic_unsafe": 28,
+      "share_leaky_tool_in_thought": 0.0,
+      "share_tool_in_history": 0.3333,
+      "share_nested_args": 0.0,
+      "mean_n_args": 1.816,
+      "mean_thought_chars": 187.6,
+      "approx_input_tokens_per_pass": 52745
+    },
+    "agentdojo/slack": {
+      "steps": 101,
+      "unsafe": 19,
+      "trajectories": 28,
+      "unique_tools": 9,
+      "parse_status": {
+        "ok_json_object": 101
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 101
+        },
+        "code_python": {
+          "ok": 101
+        },
+        "shell_cli": {
+          "ok": 101
+        }
+      },
+      "eligible_programmatic": 101,
+      "eligible_programmatic_unsafe": 19,
+      "share_leaky_tool_in_thought": 0.0198,
+      "share_tool_in_history": 0.4554,
+      "share_nested_args": 0.0,
+      "mean_n_args": 1.248,
+      "mean_thought_chars": 193.6,
+      "approx_input_tokens_per_pass": 81228
+    },
+    "agentdojo/travel": {
+      "steps": 177,
+      "unsafe": 20,
+      "trajectories": 42,
+      "unique_tools": 16,
+      "parse_status": {
+        "ok_json_object": 177
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 177
+        },
+        "code_python": {
+          "ok": 177
+        },
+        "shell_cli": {
+          "ok": 177
+        }
+      },
+      "eligible_programmatic": 177,
+      "eligible_programmatic_unsafe": 20,
+      "share_leaky_tool_in_thought": 0.0,
+      "share_tool_in_history": 0.1356,
+      "share_nested_args": 0.6215,
+      "mean_n_args": 1.571,
+      "mean_thought_chars": 182.4,
+      "approx_input_tokens_per_pass": 235471
+    },
+    "agentdojo/workspace": {
+      "steps": 855,
+      "unsafe": 285,
+      "trajectories": 474,
+      "unique_tools": 23,
+      "parse_status": {
+        "ok_json_object": 855
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 855
+        },
+        "code_python": {
+          "ok": 855
+        },
+        "shell_cli": {
+          "ok": 855
+        }
+      },
+      "eligible_programmatic": 855,
+      "eligible_programmatic_unsafe": 285,
+      "share_leaky_tool_in_thought": 0.0012,
+      "share_tool_in_history": 0.3988,
+      "share_nested_args": 0.2211,
+      "mean_n_args": 1.93,
+      "mean_thought_chars": 160.6,
+      "approx_input_tokens_per_pass": 2116965
+    },
+    "agentharm/benign_steps": {
+      "steps": 206,
+      "unsafe": 0,
+      "trajectories": 125,
+      "unique_tools": 65,
+      "parse_status": {
+        "ok_json_object": 206
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 206
+        },
+        "code_python": {
+          "ok": 206
+        },
+        "shell_cli": {
+          "ok": 206
+        }
+      },
+      "eligible_programmatic": 206,
+      "eligible_programmatic_unsafe": 0,
+      "share_leaky_tool_in_thought": 0.0291,
+      "share_tool_in_history": 0.3107,
+      "share_nested_args": 0.0049,
+      "mean_n_args": 1.927,
+      "mean_thought_chars": 151.3,
+      "approx_input_tokens_per_pass": 143935
+    },
+    "agentharm/harmful_steps": {
+      "steps": 525,
+      "unsafe": 525,
+      "trajectories": 72,
+      "unique_tools": 42,
+      "parse_status": {
+        "ok_json_object": 512,
+        "ok_json_value": 12,
+        "ok_text_arguments": 1
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 525
+        },
+        "code_python": {
+          "ok": 512,
+          "parse:ok_json_value": 12,
+          "parse:ok_text_arguments": 1
+        },
+        "shell_cli": {
+          "ok": 512,
+          "parse:ok_json_value": 12,
+          "parse:ok_text_arguments": 1
+        }
+      },
+      "eligible_programmatic": 512,
+      "eligible_programmatic_unsafe": 512,
+      "share_leaky_tool_in_thought": 0.0552,
+      "share_tool_in_history": 0.2552,
+      "share_nested_args": 0.0133,
+      "mean_n_args": 1.709,
+      "mean_thought_chars": 151.3,
+      "approx_input_tokens_per_pass": 371874
+    },
+    "asb/DPI_attack_success": {
+      "steps": 2293,
+      "unsafe": 1305,
+      "trajectories": 1228,
+      "unique_tools": 283,
+      "parse_status": {
+        "missing_action": 2,
+        "missing_action_input": 24,
+        "ok_json_object": 2004,
+        "ok_text_arguments": 263
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 2291,
+          "parse:missing_action": 2
+        },
+        "code_python": {
+          "ok": 2004,
+          "parse:missing_action": 2,
+          "parse:missing_action_input": 24,
+          "parse:ok_text_arguments": 263
+        },
+        "shell_cli": {
+          "ok": 2004,
+          "parse:missing_action": 2,
+          "parse:missing_action_input": 24,
+          "parse:ok_text_arguments": 263
+        }
+      },
+      "eligible_programmatic": 2004,
+      "eligible_programmatic_unsafe": 1304,
+      "share_leaky_tool_in_thought": 0.6816,
+      "share_tool_in_history": 0.1827,
+      "share_nested_args": 0.1862,
+      "mean_n_args": 2.179,
+      "mean_thought_chars": 286.4,
+      "approx_input_tokens_per_pass": 973952
+    },
+    "asb/OPI_attack_success": {
+      "steps": 2509,
+      "unsafe": 1230,
+      "trajectories": 1105,
+      "unique_tools": 345,
+      "parse_status": {
+        "empty_tool_name": 6,
+        "missing_action": 6,
+        "missing_action_input": 29,
+        "ok_json_object": 2468
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 2503,
+          "parse:missing_action": 6
+        },
+        "code_python": {
+          "ok": 2468,
+          "parse:empty_tool_name": 6,
+          "parse:missing_action": 6,
+          "parse:missing_action_input": 29
+        },
+        "shell_cli": {
+          "ok": 2468,
+          "parse:empty_tool_name": 6,
+          "parse:missing_action": 6,
+          "parse:missing_action_input": 29
+        }
+      },
+      "eligible_programmatic": 2468,
+      "eligible_programmatic_unsafe": 1225,
+      "share_leaky_tool_in_thought": 0.7302,
+      "share_tool_in_history": 0.1096,
+      "share_nested_args": 0.1407,
+      "mean_n_args": 1.669,
+      "mean_thought_chars": 250.8,
+      "approx_input_tokens_per_pass": 926842
+    },
+    "asb/atttack_failure": {
+      "steps": 429,
+      "unsafe": 0,
+      "trajectories": 257,
+      "unique_tools": 26,
+      "parse_status": {
+        "empty_tool_name": 7,
+        "missing_action": 2,
+        "missing_action_input": 61,
+        "ok_json_object": 354,
+        "ok_text_arguments": 5
+      },
+      "render_status": {
+        "thought_removed": {
+          "ok": 427,
+          "parse:missing_action": 2
+        },
+        "code_python": {
+          "ok": 354,
+          "parse:empty_tool_name": 7,
+          "parse:missing_action": 2,
+          "parse:missing_action_input": 61,
+          "parse:ok_text_arguments": 5
+        },
+        "shell_cli": {
+          "ok": 354,
+          "parse:empty_tool_name": 7,
+          "parse:missing_action": 2,
+          "parse:missing_action_input": 61,
+          "parse:ok_text_arguments": 5
+        }
+      },
+      "eligible_programmatic": 354,
+      "eligible_programmatic_unsafe": 0,
+      "share_leaky_tool_in_thought": 0.5385,
+      "share_tool_in_history": 0.2214,
+      "share_nested_args": 0.1445,
+      "mean_n_args": 1.189,
+      "mean_thought_chars": 280.2,
+      "approx_input_tokens_per_pass": 196399
+    }
+  }
+}

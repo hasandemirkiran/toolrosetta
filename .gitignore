@@ -1,0 +1,37 @@
+# data (pinned, re-fetchable) and run outputs
+data/raw/
+data/conditions/
+data/perturbations/*.jsonl
+data/perturbations/manual_review.csv
+data/inventory/*.jsonl
+artifacts/
+results/raw/**/*.jsonl
+*.tmp
+
+# secrets / local config
+.env
+secrets/
+keys.json
+gcloud.json
+
+# python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/
+results/logs/
+configs/models.verified.json
+data/renders/*.jsonl
+data/renders/manual_review.csv
+tmp/
+flagged
+data/renders/manual_review_flagged.csv

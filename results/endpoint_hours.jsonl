@@ -1,0 +1,15 @@
+{"guard": "ts-guard", "hours": 2.2, "usd_per_hour": 4.89, "usd": 10.76, "note": "2026-09-04 deploy→auto-undeploy, ~2.2 h uptime from createTime (list showed 1.2 h at 19:33Z; undeploy 20:35Z)", "recorded_at": "2026-09-04T20:30:56Z"}
+{"guard": "nemotron-3.5-lightning-30b", "hours": 2.2, "usd_per_hour": 4.89, "usd": 10.76, "note": "2026-09-04 deploy→auto-undeploy, ~2.2 h uptime from createTime (list showed 1.2 h at 19:33Z; undeploy 20:35Z)", "recorded_at": "2026-09-04T20:30:57Z"}
+{"guard": "qwen3.8-27b", "hours": 2.2, "usd_per_hour": 4.89, "usd": 10.76, "note": "2026-09-04 deploy→auto-undeploy, ~2.2 h uptime from createTime (list showed 1.2 h at 19:33Z; undeploy 20:35Z)", "recorded_at": "2026-09-04T20:30:58Z"}
+{"guard": "stepguard", "hours": 10.7, "usd_per_hour": 4.89, "usd": 52.32, "note": "2026-09-05 deploy 01:20 → undeploy 12:00 CEST, incl. ~7.5 h idle during the credential outage", "recorded_at": "2026-09-05T10:00:06Z"}
+{"guard": "ts-guard", "hours": 11.0, "usd_per_hour": 4.89, "usd": 53.79, "note": "2026-09-05 redeploy 01:22 → undeploy 12:20 CEST for ASB; ~7.5 h idle during the credential outage", "recorded_at": "2026-09-05T10:11:36Z"}
+{"guard": "agentdog", "hours": 0.9, "usd_per_hour": 4.89, "usd": 4.4, "note": "2026-09-05 12:12 deploy → 12:50 undeploy", "recorded_at": "2026-09-05T10:41:27Z"}
+{"guard": "shieldagent", "hours": 0.9, "usd_per_hour": 4.89, "usd": 4.4, "note": "2026-09-05 12:12 deploy → 12:50 undeploy", "recorded_at": "2026-09-05T10:41:29Z"}
+{"guard": "safiron", "hours": 0.9, "usd_per_hour": 4.89, "usd": 4.4, "note": "2026-09-05 12:12 deploy → 12:50 undeploy", "recorded_at": "2026-09-05T10:41:31Z"}
+{"guard": "stepguard", "hours": 0.18, "usd_per_hour": 4.89, "usd": 0.88, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:22:22Z"}
+{"guard": "agentdog", "hours": 0.18, "usd_per_hour": 4.89, "usd": 0.88, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:22:22Z"}
+{"guard": "safiron", "hours": 0.18, "usd_per_hour": 4.89, "usd": 0.88, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:22:22Z"}
+{"guard": "shieldagent", "hours": 0.18, "usd_per_hour": 4.89, "usd": 0.88, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:22:23Z"}
+{"guard": "nemotron-3.5-lightning-30b", "hours": 0.25, "usd_per_hour": 4.89, "usd": 1.22, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:26:28Z"}
+{"guard": "ts-guard", "hours": 0.38, "usd_per_hour": 4.89, "usd": 1.86, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:34:21Z"}
+{"guard": "qwen3.8-27b", "hours": 0.4, "usd_per_hour": 4.89, "usd": 1.96, "note": "natural_language run 2026-09-05: deploy start → undeploy", "recorded_at": "2026-09-05T12:35:22Z"}

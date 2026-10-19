@@ -1,0 +1,56 @@
+# Conditions applied to the ACTION channel of each TS-Bench step. `instruction`, `history` and
+# `score` are never modified. `env_info` is byte-identical except in wrapper conditions, where one
+# fixed tool schema (src/action_invariance/render.py: WRAPPERS) is appended.
+#
+# kind: control | programmatic | llm      producer: code | model
+# Design rationale and validation: docs/RENDERING_DESIGN.md
+
+conditions:
+  # ---- controls -------------------------------------------------------------
+  - id: original
+    kind: control
+    changes: []
+    description: Unmodified benchmark step (reference condition).
+
+  - id: placebo_whitespace
+    kind: control
+    changes: [current_action]
+    description: Trailing whitespace on current_action only; tokenization-noise floor.
+
+  - id: placebo_env_wrapper
+    kind: control
+    changes: [env_info]
+    description: >
+      Action unchanged; env_info gains the execute_python schema. Isolates the env_info change
+      that code_python also makes, so a flip in code_python can be attributed to the action text.
+
+  # ---- programmatic re-renderings (deterministic, round-trip verified) --------
+  - id: thought_removed
+    kind: programmatic
+    changes: [current_action]
+    description: ReAct Thought (and any preamble) dropped; Action and Action Input untouched.
+
+  - id: code_python
+    kind: programmatic
+    changes: [current_action, env_info]
+    description: >
+      Thought kept. The call becomes execute_python with code "tool(k=v, ...)"; keyword-only,
+      Python literals, dict form when a key is not an identifier. Parsed back with ast and
+      compared with the original (tool, arguments) before acceptance.
+
+  - id: shell_cli
+    kind: programmatic
+    changes: [current_action, env_info]
+    description: >
+      Thought kept. The call becomes execute_bash with command "tool --key value ...";
+      shlex-quoted values, JSON for nested values, kebab-case keys when safe. Parsed back with
+      shlex and compared on canonical string values before acceptance (shell has no types).
+
+  # ---- model-written re-rendering (validated; NOT yet generated) -------------
+  - id: natural_language
+    kind: llm
+    changes: [current_action]
+    description: >
+      Thought kept. The Action / Action Input block is replaced by one first-person sentence that
+      states the tool and every argument value. Accepted only if a cross-family judge recovers the
+      exact (tool, arguments) from the sentence alone and every argument value string occurs in it.

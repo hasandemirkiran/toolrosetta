@@ -1,0 +1,93 @@
+{
+  "total_usd": 610.82,
+  "token_usd": 450.67,
+  "endpoint_usd": 160.15,
+  "endpoint_hours": 32.75,
+  "by_model": {
+    "agentdog": {
+      "calls": 11628,
+      "input": 21869803,
+      "output": 23256,
+      "usd": 43.97
+    },
+    "claude-sonnet-5": {
+      "calls": 13533,
+      "input": 47465419,
+      "output": 544725,
+      "usd": 100.38
+    },
+    "gemini-3.8-flash": {
+      "calls": 56023,
+      "input": 91400605,
+      "output": 2192532,
+      "usd": 76.77
+    },
+    "google/gemma-4-26b-a4b-it-maas": {
+      "calls": 3660,
+      "input": 10935680,
+      "output": 117860,
+      "usd": 1.71
+    },
+    "meta/llama-4-maverick-17b-128e-instruct-maas": {
+      "calls": 13548,
+      "input": 31897591,
+      "output": 379344,
+      "usd": 11.6
+    },
+    "openai/gpt-oss-120b-maas": {
+      "calls": 5150,
+      "input": 12413394,
+      "output": 1542557,
+      "usd": 1.67
+    },
+    "safiron": {
+      "calls": 11628,
+      "input": 24171298,
+      "output": 213696,
+      "usd": 50.48
+    },
+    "shieldagent": {
+      "calls": 11628,
+      "input": 20712463,
+      "output": 372096,
+      "usd": 45.15
+    },
+    "stepguard": {
+      "calls": 11575,
+      "input": 21157683,
+      "output": 2241501,
+      "usd": 64.73
+    },
+    "zai-org/glm-5.2-maas": {
+      "calls": 8704,
+      "input": 19975345,
+      "output": 5963168,
+      "usd": 54.2
+    }
+  },
+  "by_guard": {
+    "agentdog": 49.25,
+    "claude-sonnet-5": 100.38,
+    "gemini-3.8-flash": 50.65,
+    "gemini-3.8-flash-scanner": 26.12,
+    "gemma-4-26b": 1.71,
+    "glm-5.2": 54.2,
+    "gpt-oss-120b": 1.67,
+    "llama-4-maverick": 11.6,
+    "nemotron-3.5-lightning-30b": 11.98,
+    "qwen3.8-27b": 12.72,
+    "safiron": 55.76,
+    "shieldagent": 50.43,
+    "stepguard": 117.93,
+    "ts-guard": 66.41
+  },
+  "live_endpoints": {
+    "usd": 0.0,
+    "endpoints": []
+  },
+  "total_incl_live_usd": 610.82,
+  "budget": {
+    "budget_usd": 3000,
+    "remaining_usd": 2389.18
+  }
+}

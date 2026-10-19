@@ -1,0 +1,14 @@
+{
+  "frozen_at": "2026-09-05T12:03:51Z",
+  "git_head": "b3db4d50969e6c377175f30d028f98e44627e08c",
+  "files": [
+    {
+      "file": "natural_language.jsonl",
+      "sha256": "a54cf1da1b88ed14135d165b4b79c81d73b535711f74f023790e84986efc4072",
+      "rows": 1938,
+      "candidates": 1921,
+      "accepted": 1920,
+      "manually_reviewed": 185
+    }
+  ]
+}

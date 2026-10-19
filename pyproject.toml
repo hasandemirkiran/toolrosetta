@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "action-invariance"
+version = "0.1.0"
+description = "Does a step-level agent guard's verdict depend on how the candidate tool call is written? Same action, same label, different surface form, on TS-Bench."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "pyyaml>=6",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+vertex = [
+    "google-genai>=1.20",
+    "google-auth>=2.30",
+    "anthropic[vertex]>=0.40",
+]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+action-invariance = "action_invariance.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

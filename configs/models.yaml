@@ -1,0 +1,236 @@
+# action-invariance guard roster. Derived from guard-invariance/configs/models.yaml (2026-09-04) with the
+# Google Cloud project changed to GCP-PROJECT; self-deployed endpoints must be re-deployed there
+# (`python scripts/endpoints.py deploy <guard> --execute`, then `sync`). OpenAI API models are not on the
+# Agent Platform; gpt-oss-120b (open weights) is.
+
+# Single platform: Google Cloud project GCP-PROJECT, Gemini Enterprise Agent Platform (the
+# former Vertex AI; API host is still aiplatform.googleapis.com, SDK is google-genai with
+# GOOGLE_GENAI_USE_ENTERPRISE=True). Two consumption modes, both billed to the same project:
+#   managed        – per token (Gemini, Claude partner, Llama 4 partner, GLM 5.2 API service, gpt-oss-120b, Gemma 4)
+#   vertex_endpoint – self-deployed from Model Garden / Hugging Face on a dedicated vLLM endpoint, per GPU-hour
+#
+# Verified 2026-09-03 (docs + your Model Garden console):
+#   * Managed open-model (MaaS) endpoints for Qwen3, DeepSeek V3.x, GLM 5/4.7, gpt-oss-20b, Kimi K2, Llama 3.3,
+#     MiniMax were DEPRECATED 2026-07-21 and RETIRE 2026-10-21. Do not build on them.
+#   * Self-deploy cards exist for Qwen/Qwen3.8-27B (+ -FP8), Kimi-K3, DeepSeek-V4, GLM 5.2, google/gemma-4-31B-it,
+#     and any Hugging Face repo (custom weights) — that is how TS-Guard, Nemotron 3.5 and Muse Spark 1.2 run.
+#   * Model Garden's default vLLM serving spec is "2k context": set max-model-len 32768 before deploying
+#     (steps average ~2.5k tokens, p90 ~8k, plus the guard prompt).
+#
+# MODEL ID STRINGS ARE BEST-EFFORT — run `python scripts/verify_models.py` after ADC is set up.
+
+project: ${GOOGLE_CLOUD_PROJECT}
+location: global               # Gemini 3.x previews, MaaS and Claude 4.6+/Sonnet 5 partner models are served from `global` (verified 2026-09-04); endpoints carry their own region
+
+generator:
+  natural_language:              # the only LLM-produced condition (docs/RENDERING_DESIGN.md); not yet run
+    provider: gemini
+    model: gemini-3.8-flash
+    temperature: 0.3
+  validator:                     # round-trip judge: prose -> (tool, arguments) must match the original exactly
+    provider: claude
+    model: claude-sonnet-5
+    temperature: 0.0
+  validator_secondary:
+    provider: gemini
+    model: gemini-3.1-pro-preview
+    temperature: 0.0
+
+budget:
+  budget_usd: 3000   # TODO Hasan: confirm the cap for GCP-PROJECT
+  warn_at_usd: 1500
+  chars_per_token: 4.0
+
+# $ per 1M tokens [input, output], global endpoint, standard (non-batch) requests.
+# Source: cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing, read 2026-09-03.
+# Gemini 3.6/3.7/3.8 Flash are on introductory pricing through 2026-12-31 ($1.50/$7.50 from 2027-01-01).
+# Non-global regions are +10% for Gemini. "endpoint" = self-deployed, billed per GPU-hour (usd_per_hour on the guard).
+pricing:
+  gemini-3.8-flash:            [0.75, 3.75]
+  gemini-3.5-flash-lite:       [0.30, 2.50]
+  gemini-3.1-pro-preview:      [2.00, 12.00]    # ≤200k-token prompts; 4.00/18.00 above
+  claude-sonnet-5:             [2.00, 10.00]    # cache hit 0.20 — prompt caching would cut this guard ~5×
+  claude-haiku-4-5@20251001:   [1.00, 5.00]
+  meta/llama-4-maverick-17b-128e-instruct-maas: [0.35, 1.15]
+  openai/gpt-oss-120b-maas:    [0.09, 0.36]
+  google/gemma-4-26b-a4b-it-maas: [0.15, 0.60]
+  zai-org/glm-5.2-maas:        [1.40, 4.40]
+  qwen3.8-27b:                 endpoint
+  nemotron-3.5-lightning-30b:  endpoint
+  ts-guard:                    endpoint
+  default:                     [2.00, 10.00]
+
+# ---------------------------------------------------------------------------
+# Guards under test. role: alignment (reads USER_REQUEST) | scanner (never sees it) | specialized
+# ---------------------------------------------------------------------------
+guards:
+  # -- managed, closed production ------------------------------------------
+  - id: gemini-3.8-flash
+    provider: gemini
+    model: gemini-3.8-flash
+    role: alignment
+    tier: production_closed
+    note: Same family as the generator.
+
+  - id: claude-sonnet-5
+    provider: claude
+    model: claude-sonnet-5
+    role: alignment
+    tier: production_closed_ceiling
+    note: Capability ceiling; also the primary validator — overlap reported.
+
+  # -- managed, open weights ------------------------------------------------
+  - id: llama-4-maverick
+    provider: maas
+    model: meta/llama-4-maverick-17b-128e-instruct-maas
+    location: us-east5             # Llama 4 MaaS is served from us-east5 only (404 from global; verified 2026-09-04)
+    role: alignment
+    tier: open_frontier
+    note: Backbone of LlamaFirewall AlignmentCheck (partner model; not on the retirement list).
+
+  - id: glm-5.2
+    provider: maas
+    model: zai-org/glm-5.2-maas
+    role: alignment
+    tier: open_frontier
+    note: GLM 5.2 API Service serverless card (new); id string to verify.
+
+  - id: gpt-oss-120b
+    provider: maas
+    model: openai/gpt-oss-120b-maas
+    role: alignment
+    tier: open_mid
+    note: Still managed after Oct 21 (the 20b endpoint is retiring).
+
+  - id: gemma-4-26b
+    provider: maas
+    model: google/gemma-4-26b-a4b-it-maas
+    role: alignment
+    tier: open_small
+
+  # -- self-deployed (Model Garden / Hugging Face → dedicated vLLM endpoint) --
+  - id: qwen3.8-27b
+    provider: vertex_endpoint
+    model: qwen3.8-27b              # any label; the endpoint serves one model
+    hf_repo: Qwen/Qwen3.8-27B-FP8   # FP8 fits the RTX PRO 6000 with 32k KV headroom; bf16 also works
+    endpoint_id: "7169253418727374848"                 # filled by `python scripts/endpoints.py sync`
+    dedicated_dns: "7169253418727374848.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89              # RTX_PRO_6000 ×1 list price from the deploy panel
+    est_hours_per_condition: 0.75
+    role: alignment
+    tier: open_small_selfhost
+    deploy_mode: custom_container   # see endpoints.py: Model Garden's --container-args replaces the launch command
+    serving: {max_model_len: 32768, dtype: fp8}   # checkpoint is pre-quantized FP8 (auto-detected by vLLM)
+
+  - id: nemotron-3.5-lightning-30b
+    provider: vertex_endpoint
+    model: nemotron-3.5-lightning-30b
+    hf_repo: nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16   # exact HF id (2026-09-04); bf16 ≈ 31.6 GB, NemotronH hybrid arch; NVFP4 variant also exists
+    endpoint_id: "3823078895591096320"
+    dedicated_dns: "3823078895591096320.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.5
+    role: alignment
+    tier: open_small_selfhost
+    deploy_mode: custom_container
+    serving: {max_model_len: 32768, extra_args: ["--trust-remote-code"]}   # NemotronH hybrid Mamba/attention arch
+
+  - id: ts-guard
+    provider: vertex_endpoint
+    model: ts-guard
+    hf_repo: MurrayTom/TS-Guard
+    hf_revision: ad2f82df3ae3e0dcdaed7b7c71e8b7f0b16ead7a
+    deploy_mode: custom_container   # Model Garden refuses unverified HF repos; endpoints.py registers the vLLM image itself (Qwen2 7.6B bf16)
+    endpoint_id: "7165875719006846976"
+    dedicated_dns: "7165875719006846976.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.5
+    role: specialized
+    tier: specialized
+    prompt_version: ts_guard_native   # authors' XML prompt + parser, greedy decoding
+    training_language: en
+    note: Translation conditions reported as out of documented scope, excluded from the primary ranking.
+
+  # -- control ----------------------------------------------------------------
+  - id: stepguard
+    provider: vertex_endpoint
+    model: stepguard
+    hf_repo: ninty-seven/StepGuard    # revision c322d1ec2de38f204498d45f79646c6e80a0ea7e (ToolSafe-Lab STEPGUARD_FEASIBILITY.md); Qwen-based 4B bf16, ≈7.5 GB
+    deploy_mode: custom_container
+    endpoint_id: "8359048145283317760"
+    dedicated_dns: "8359048145283317760.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.6
+    role: specialized
+    tier: specialized
+    prompt_version: stepguard_native   # released StepGuard action prompt, one user message, greedy; <Judgment>safe|unsafe</Judgment>
+    serving: {max_model_len: 32768}
+
+  - id: agentdog
+    provider: vertex_endpoint
+    model: agentdog
+    hf_repo: AI45Research/AgentDoG-Qwen3-4B
+    deploy_mode: custom_container
+    endpoint_id: "1404645895693139968"
+    dedicated_dns: "1404645895693139968.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.4
+    role: specialized
+    tier: specialized
+    prompt_version: agentdog_native
+    serving: {max_model_len: 32768}
+
+  - id: shieldagent
+    provider: vertex_endpoint
+    model: shieldagent
+    hf_repo: thu-coai/ShieldAgent
+    deploy_mode: custom_container
+    endpoint_id: "9129445156540383232"
+    dedicated_dns: "9129445156540383232.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.5
+    role: specialized
+    tier: specialized
+    prompt_version: shieldagent_native
+    serving: {max_model_len: 32768}
+
+  - id: safiron
+    provider: vertex_endpoint
+    model: safiron
+    hf_repo: Safiron/Safiron
+    deploy_mode: custom_container
+    endpoint_id: "1401268195972612096"
+    dedicated_dns: "1401268195972612096.europe-west4-201482049771.prediction.vertexai.goog"
+    location: europe-west4
+    usd_per_hour: 4.89
+    est_hours_per_condition: 0.4
+    role: specialized
+    tier: specialized
+    prompt_version: safiron_native
+    serving: {max_model_len: 32768}
+
+  - id: gemini-3.8-flash-scanner
+    provider: gemini
+    model: gemini-3.8-flash
+    role: scanner
+    tier: control
+    prompt_version: scanner_v1
+
+  # -- deferred: NOT part of the plan for now (multi-GPU self-deploy, likely $30–100/h) ----
+  # Revisit after the pilot by running `python scripts/endpoints.py deploy kimi-k3` in print mode
+  # and reading the machine spec / price the card proposes before committing.
+  # - id: kimi-k3        provider: vertex_endpoint   note: 2.8T MoE
+  # - id: deepseek-v4    provider: vertex_endpoint   note: 1.6T MoE (Pro); if the card is V4-Flash it may fit a single node
+
+# Translate-then-guard mitigation wrapper (PROTOCOL §5). Non-Google model would be cleaner;
+# Flash-Lite is the cheapest managed option on this platform.
+mitigation:
+  pretranslate:
+    provider: gemini
+    model: gemini-3.5-flash-lite

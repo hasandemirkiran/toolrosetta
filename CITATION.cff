@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this code or the results, please cite the paper."
+title: "ToolRosetta: Surface-Form Invariance of Tool-Call Guards"
+authors:
+  - family-names: Demirkiran
+    given-names: Hasan
+  - family-names: Ernstberger
+    given-names: Jens
+date-released: 2026-10-20
+url: "https://github.com/hasandemirkiran/toolrosetta"
+preferred-citation:
+  type: article
+  title: "ToolRosetta: Surface-Form Invariance of Tool-Call Guards"
+  authors:
+    - family-names: Demirkiran
+      given-names: Hasan
+    - family-names: Ernstberger
+      given-names: Jens
+  year: 2026
+  journal: "arXiv preprint"
+  url: "https://github.com/hasandemirkiran/toolrosetta"
