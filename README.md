@@ -2,7 +2,7 @@
 
 **Hasan Demirkiran and Jens Ernstberger** ([Kontext](https://kontext.security))
 
-arXiv version to follow (submitted) · Accepted at the NeurIPS 2026 Workshop on Agents in the Wild: Safety, Security, and Beyond (AIWILD).
+[arXiv:2610.24055](https://arxiv.org/abs/2610.24055) · Accepted at the NeurIPS 2026 Workshop on Agents in the Wild: Safety, Security, and Beyond (AIWILD).
 
 Code, frozen protocol, renderers and round-trip parser, guard adapters, aggregate results and all per-row verdicts for the paper. Sibling repositories: [linguaguardbench](https://github.com/hasandemirkiran/linguaguardbench) and [shortcut-sensitivity-agent-safety-evaluations](https://github.com/hasandemirkiran/shortcut-sensitivity-agent-safety-evaluations).
 
@@ -16,7 +16,7 @@ Code, frozen protocol, renderers and round-trip parser, guard adapters, aggregat
 @article{demirkiran2026toolrosetta,
   title   = {ToolRosetta: Surface-Form Invariance of Tool-Call Guards},
   author  = {Demirkiran, Hasan and Ernstberger, Jens},
-  journal = {arXiv preprint},
+  journal = {arXiv preprint arXiv:2610.24055},
   year    = {2026},
   note    = {NeurIPS 2026 Workshop on Agents in the Wild (AIWILD)}
 }

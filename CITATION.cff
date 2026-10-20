@@ -7,7 +7,7 @@ authors:
   - family-names: Ernstberger
     given-names: Jens
 date-released: 2026-10-20
-url: "https://github.com/hasandemirkiran/toolrosetta"
+url: "https://arxiv.org/abs/2610.24055"
 preferred-citation:
   type: article
   title: "ToolRosetta: Surface-Form Invariance of Tool-Call Guards"
@@ -17,5 +17,5 @@ preferred-citation:
     - family-names: Ernstberger
       given-names: Jens
   year: 2026
-  journal: "arXiv preprint"
-  url: "https://github.com/hasandemirkiran/toolrosetta"
+  journal: "arXiv preprint arXiv:2610.24055"
+  url: "https://arxiv.org/abs/2610.24055"
